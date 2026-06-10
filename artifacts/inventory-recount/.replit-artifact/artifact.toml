@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Авто Перерахунок"
+version = "1.0.0"
+id = "artifacts/inventory-recount"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19443
+
+[services.development]
+run = "pnpm --filter @workspace/inventory-recount run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/inventory-recount", "run", "build" ]
+publicDir = "artifacts/inventory-recount/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19443"
+BASE_PATH = "/"
